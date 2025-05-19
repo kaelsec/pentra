@@ -162,3 +162,46 @@ event_types:
     score_threshold: 0.85
     mapped_ttps:
       - { id: "T1105", weight: 1.0 }
+
+  - id: EVT-011
+    name: "COM Hijack via fodhelper"
+    domain: edr
+    vendor: velociraptor
+    conditions:
+      - field: "process_name"
+        op: "equals"
+        value: "fodhelper.exe"
+        weight: 1.0
+    score_threshold: 0.7
+    mapped_ttps:
+      - { id: "T1548.002", weight: 1.0 }
+
+  - id: EVT-012
+    name: "ETW Bypass using etwti"
+    domain: edr
+    vendor: velociraptor
+    conditions:
+      - field: "command_line"
+        op: "contains"
+        value: "etwti"
+        weight: 1.0
+    score_threshold: 0.6
+    mapped_ttps:
+      - { id: "T1620", weight: 1.0 }
+
+  - id: EVT-013
+    name: "Remote Code Execution via mshta"
+    domain: edr
+    vendor: velociraptor
+    conditions:
+      - field: "process_name"
+        op: "equals"
+        value: "mshta.exe"
+        weight: 0.5
+      - field: "command_line"
+        op: "contains"
+        value: "http"
+        weight: 0.5
+    score_threshold: 0.7
+    mapped_ttps:
+      - { id: "T1218.005", weight: 1.0 }
