@@ -1,0 +1,48 @@
+
+# 🔖 Version: v1.0
+# 📄 File: rules/session_roles.yaml
+
+- id: ROLE-001
+  role_name: entrypoint
+  domain: edr
+  vendor: velociraptor
+  conditions:
+    all:
+      - field: process_name
+        op: equals
+        value: powershell.exe
+      - field: parent_proc
+        op: equals
+        value: winword.exe
+  score: 0.9
+  explanation: "Likely initial execution from document"
+  tags: [initial_access, office_macro]
+
+- id: ROLE-002
+  role_name: pivotable
+  domain: edr
+  vendor: velociraptor
+  conditions:
+    all:
+      - field: command_line
+        op: contains
+        value: mimikatz
+  score: 0.8
+  explanation: "Credential access utility observed"
+  tags: [credential_access, lateral_prep]
+
+- id: ROLE-003
+  role_name: expansion
+  domain: edr
+  vendor: velociraptor
+  conditions:
+    all:
+      - field: dst_port
+        op: equals
+        value: 445
+      - field: proc_name
+        op: contains
+        value: smb
+  score: 0.85
+  explanation: "Likely lateral movement via SMB"
+  tags: [lateral_movement, smb]

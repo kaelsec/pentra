@@ -1,0 +1,82 @@
+# 📄 rules/policy_evaluation_rules.yaml
+# 🔖 Version: v1.0
+
+- id: POL-001
+  name: "PowerShell Logging Enabled"
+  conditions:
+    - field: powershell_logging
+      op: equals
+      value: true
+  explanation: "PowerShell logging must be enabled for traceability."
+
+- id: POL-002
+  name: "Password Expiration Enforced"
+  conditions:
+    - field: password_expiration_days
+      op: gte
+      value: 90
+  explanation: "Passwords should expire at least every 90 days."
+
+- id: POL-003
+  name: "Account Lockout Threshold Configured"
+  conditions:
+    - field: account_lockout_threshold
+      op: lte
+      value: 5
+  explanation: "Account lockout must occur after a limited number of failed attempts."
+
+- id: POL-004
+  name: "Windows Defender Enabled"
+  conditions:
+    - field: windows_defender_enabled
+      op: equals
+      value: true
+  explanation: "Windows Defender should be enabled for baseline protection."
+
+- id: POL-005
+  name: "Firewall is Active"
+  conditions:
+    - field: firewall_enabled
+      op: equals
+      value: true
+  explanation: "The system firewall must be enabled."
+
+- id: POL-006
+  name: "UAC is Enabled"
+  conditions:
+    - field: uac_enabled
+      op: equals
+      value: true
+  explanation: "User Account Control should be enabled to prevent privilege escalation."
+
+- id: POL-007
+  name: "Remote Desktop Disabled"
+  conditions:
+    - field: rdp_enabled
+      op: equals
+      value: false
+  explanation: "Remote Desktop Protocol should be disabled unless explicitly required."
+
+- id: POL-008
+  name: "AutoRun is Disabled"
+  conditions:
+    - field: autorun_enabled
+      op: equals
+      value: false
+  explanation: "AutoRun must be disabled to prevent automated malware execution."
+
+- id: POL-009
+  name: "Security Updates Applied Within 30 Days"
+  conditions:
+    - field: last_security_update_days
+      op: lte
+      value: 30
+  explanation: "Security patches must be applied within 30 days of release."
+
+- id: POL-010
+  name: "Guest Account Disabled"
+  conditions:
+    - field: guest_account_enabled
+      op: equals
+      value: false
+  explanation: "Guest account should be disabled to reduce attack surface."

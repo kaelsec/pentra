@@ -1,0 +1,24 @@
+[
+  {
+    "timestamp": "2025-05-18T10:00:00",
+    "process_name": "fodhelper.exe",
+    "parent_proc": "explorer.exe",
+    "command_line": "fodhelper.exe /c evil.exe",
+    "source_type": "edr",
+    "vendor": "velociraptor"
+  },
+  {
+    "timestamp": "2025-05-18T10:00:15",
+    "command_line": "etwti -disable",
+    "process_name": "etwti.exe",
+    "source_type": "edr",
+    "vendor": "velociraptor"
+  },
+  {
+    "timestamp": "2025-05-18T10:00:30",
+    "command_line": "rundll32.exe shell32.dll,Control_RunDLL",
+    "process_name": "rundll32.exe",
+    "source_type": "edr",
+    "vendor": "velociraptor"
+  }
+]
