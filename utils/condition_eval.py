@@ -1,24 +1,24 @@
-# 📄 File: utils/condition_eval.py
-# 🔖 Version: v0.3-patch
-
 def evaluate_conditions(event, condition_block):
     def _eval(block):
         if isinstance(block, list):
             results = [_eval(item) for item in block]
+            weights = [w for _, w in results if w is not None]
             matched = all(m for m, _ in results)
-            confidence = sum(c for _, c in results) / len(results) if results else 0.0
+            confidence = sum(weights) / len(weights) if weights else 0.0
             return matched, confidence
 
         if "all" in block:
             results = [_eval(item) for item in block["all"]]
+            weights = [w for _, w in results if w is not None]
             matched = all(m for m, _ in results)
-            confidence = sum(c for _, c in results) / len(results) if results else 0.0
+            confidence = sum(weights) / len(weights) if weights else 0.0
             return matched, confidence
 
         if "any" in block:
             results = [_eval(item) for item in block["any"]]
-            matched = any(m for m, _ in results)
-            confidence = max(c for m, c in results if m) if results else 0.0
+            matched_items = [(m, c) for m, c in results if m]
+            matched = bool(matched_items)
+            confidence = max(c for _, c in matched_items) if matched_items else 0.0
             return matched, confidence
 
         # Base condition
@@ -28,21 +28,27 @@ def evaluate_conditions(event, condition_block):
         weight = block.get("weight", 1.0)
 
         actual = event.get(field)
+        if actual is None:
+            return (False, None)
 
+        actual = str(actual).lower()
+        value = str(value).lower()
+
+        match = False
         if op == "equals":
-            return (actual == value, weight)
-        if op == "contains":
-            return (value in actual if actual else False, weight)
-        if op == "startswith":
-            return (actual.startswith(value) if actual else False, weight)
-        if op == "endswith":
-            return (actual.endswith(value) if actual else False, weight)
-        if op == "in":
-            return (actual in value if isinstance(value, list) else False, weight)
-        if op == "regex":
+            match = actual == value
+        elif op == "contains":
+            match = value in actual
+        elif op == "startswith":
+            match = actual.startswith(value)
+        elif op == "endswith":
+            match = actual.endswith(value)
+        elif op == "in":
+            match = actual in value if isinstance(value, list) else False
+        elif op == "regex":
             import re
-            return (bool(re.search(value, actual)) if actual else False, weight)
+            match = bool(re.search(value, actual))
 
-        return False, 0.0
+        return (match, weight if match else 0.0)  # ✅ 핵심: False 조건은 0.0 confidence로 포함됨
 
     return _eval(condition_block)

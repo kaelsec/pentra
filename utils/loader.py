@@ -1,6 +1,3 @@
-# 📄 utils/loader.py
-# 🔖 Version: v1.0
-
 import json
 import yaml
 

@@ -41,3 +41,29 @@ def parse_squid(line: str) -> dict:
 
     except Exception:
         return None
+
+
+# def parse_squid(log):
+#     if isinstance(log, dict):
+#         return {
+#             "source_type": "proxy",
+#             "vendor": "squid",
+#             **log
+#         }
+#     elif isinstance(log, str):
+#         parts = log.strip().split()
+#         return {
+#             "source_type": "proxy",
+#             "vendor": "squid",
+#             "timestamp": parts[0],
+#             "client_ip": parts[1],
+#             "url": parts[2],
+#             "status": parts[3]
+#         }
+#     else:
+#         return {
+#             "source_type": "proxy",
+#             "vendor": "squid",
+#             "raw": str(log)
+#         }
+

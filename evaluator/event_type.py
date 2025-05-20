@@ -21,7 +21,8 @@ def evaluate_event_type(log: dict, event_def: dict) -> dict:
         "result": False
     }
 
-    if not matched or confidence < event_def.get("score_threshold", 1.0):
+    if confidence < event_def.get("score_threshold", 1.0):
+
         return base_result
 
     mapped_ttps = []
@@ -37,6 +38,7 @@ def evaluate_event_type(log: dict, event_def: dict) -> dict:
             "mapped_by": f'DSL:{event_def.get("schema_version", "v1.1")}'
         })
 
-    base_result["ttps"] = mapped_ttps
-    base_result["result"] = "True"
+    base_result["mapped_ttps"] = mapped_ttps
+    base_result["result"] = True
+
     return base_result

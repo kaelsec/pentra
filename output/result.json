@@ -1,0 +1,135 @@
+{
+  "summary": "Evaluation completed over log dataset",
+  "all_results": {
+    "event": [
+      {
+        "event_type_id": "EVT-013",
+        "event_type": "Remote Code Execution via mshta",
+        "confidence": 0.5,
+        "explanation": "",
+        "schema_version": "v2.0",
+        "mapped_ttps": [
+          {
+            "id": "T1218.005",
+            "score": 0.5,
+            "from": "evaluate_event_type",
+            "mapped_by": "DSL:v1.1"
+          }
+        ],
+        "result": true
+      },
+      {
+        "event_type_id": "EVT-015",
+        "event_type": "ETW Bypass via PowerShell",
+        "confidence": 0.5,
+        "explanation": "",
+        "schema_version": "v2.0",
+        "mapped_ttps": [
+          {
+            "id": "T1620",
+            "score": 0.5,
+            "from": "evaluate_event_type",
+            "mapped_by": "DSL:v1.1"
+          }
+        ],
+        "result": true
+      },
+      {
+        "event_type_id": "EVT-016",
+        "event_type": "Rundll32 Process Injection",
+        "confidence": 0.5,
+        "explanation": "",
+        "schema_version": "v2.0",
+        "mapped_ttps": [
+          {
+            "id": "T1055",
+            "score": 0.5,
+            "from": "evaluate_event_type",
+            "mapped_by": "DSL:v1.1"
+          }
+        ],
+        "result": true
+      },
+      {
+        "event_type_id": "EVT-017",
+        "event_type": "Credential Access via Mimikatz",
+        "confidence": 0.5,
+        "explanation": "",
+        "schema_version": "v2.0",
+        "mapped_ttps": [
+          {
+            "id": "T1003",
+            "score": 0.5,
+            "from": "evaluate_event_type",
+            "mapped_by": "DSL:v1.1"
+          }
+        ],
+        "result": true
+      }
+    ],
+    "session": [],
+    "policy": [
+      {
+        "policy_id": "POL-001",
+        "result": "False",
+        "explanation": "PowerShell logging must be enabled for traceability.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-002",
+        "result": "False",
+        "explanation": "Passwords should expire at least every 90 days.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-003",
+        "result": "False",
+        "explanation": "Account lockout must occur after a limited number of failed attempts.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-004",
+        "result": "False",
+        "explanation": "Windows Defender should be enabled for baseline protection.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-005",
+        "result": "True",
+        "explanation": "The system firewall must be enabled.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-006",
+        "result": "True",
+        "explanation": "User Account Control should be enabled to prevent privilege escalation.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-007",
+        "result": "False",
+        "explanation": "Remote Desktop Protocol should be disabled unless explicitly required.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-008",
+        "result": "True",
+        "explanation": "AutoRun must be disabled to prevent automated malware execution.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-009",
+        "result": "False",
+        "explanation": "Security patches must be applied within 30 days of release.",
+        "schema_version": "v1.0"
+      },
+      {
+        "policy_id": "POL-010",
+        "result": "False",
+        "explanation": "Guest account should be disabled to reduce attack surface.",
+        "schema_version": "v1.0"
+      }
+    ]
+  },
+  "schema_version": "v1.2"
+}

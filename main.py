@@ -1,6 +1,5 @@
-# 📄 main.py
-# 🔖 Version: v1.0
 
+import json
 from utils.loader import load_yaml, load_json, save_json
 from parser import parse_raw_log
 from evaluator.event_type import evaluate_event_type
@@ -18,27 +17,35 @@ def main():
     policy_dsl = load_yaml("rules/policy_evaluation_rules.yaml")
     session_role_dsl = load_yaml("rules/session_roles.yaml")
 
-    # 2. Parse raw logs into structured format
-    parsed_logs = parse_raw_log(raw_logs)
+    # 2. Parse raw logs
+    parsed_logs = []
+    for raw in raw_logs:
+        try:
+            raw_str = json.dumps(raw) if isinstance(raw, dict) else raw
+            result = parse_raw_log(raw_str)
+            if result:
+                parsed_logs.append(result)
+        except Exception as e:
+            print(f"[!] Failed to parse log: {e}")
 
     # 3. Evaluate event types
     event_results = []
     for log in parsed_logs:
-        for rule in event_dsl:
+        best_result = None
+        for rule in event_dsl["event_types"]:
             result = evaluate_event_type(log, rule)
-            if result["result"] == "True":
-                event_results.append(result)
-                break  # Stop at first match
-            elif result["result"] == "False":
-                event_results.append(result)
+            if result["result"] and (best_result is None or result["confidence"] > best_result["confidence"]):
+                best_result = result
+        if best_result:
+            event_results.append(best_result)
 
-    # 4. Evaluate policy compliance
+    # 4. Policy evaluation
     policy_results = [evaluate_policy(config_snapshot, rule) for rule in policy_dsl]
 
-    # 5. Build sessions
-    sessions = build_sessions(parsed_logs)
+    # 5. Session building
+    sessions = build_sessions(event_results)
 
-    # 6. Evaluate session roles
+    # 6. Session role evaluation
     session_roles = []
     for session in sessions:
         session_roles.extend(evaluate_role(session, session_role_dsl))
@@ -46,14 +53,20 @@ def main():
     # 7. Aggregate risk
     aggregate_result = aggregate_risk(event_results, policy_results, session_roles)
 
-    # 8. Save result
+    # 8. Save final report
     final_result = {
-        "event_evaluation": event_results,
-        "policy_evaluation": policy_results,
-        "session_roles": session_roles,
-        "risk_summary": aggregate_result
+        "summary": "Evaluation completed over log dataset",
+        "all_results": {
+            "event": event_results,
+            "session": session_roles,
+            "policy": policy_results
+        },
+        "schema_version": "v1.2"
     }
-    save_json("output/result.json", final_result)
+    print('FINAL_RESULT_REPR_START')
+    print(repr(final_result))
+    print('FINAL_RESULT_REPR_END')
+    save_json("output/result.json", final_result )
 
     print("[+] Risk evaluation complete. Output saved to output/result.json")
 

@@ -36,7 +36,7 @@ def parse_raw_log(raw: str) -> dict:
         pass
 
     # ✅ Squid 로그 (UNIX timestamp + HTTP + URL)
-    if raw.strip().startswith("171") and "http" in raw_lower and "GET" in raw:
+    if "http" in raw_lower and any(method in raw for method in ["GET", "POST", "CONNECT"]):
         return parse_squid(raw)
 
     return None  # 인식되지 않은 로그

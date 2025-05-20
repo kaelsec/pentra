@@ -5,203 +5,306 @@ event_types:
     name: "Suspicious PowerShell Execution"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "process_name"
-        op: "equals"
-        value: "powershell.exe"
-        weight: 0.5
-      - field: "command_line"
-        op: "contains"
-        value: "-enc"
-        weight: 0.5
     score_threshold: 0.9
+    conditions:
+      - field: process_name
+        op: equals
+        value: powershell.exe
+        weight: 0.5
+      - field: command_line
+        op: contains
+        value: -enc
+        weight: 0.5
     mapped_ttps:
-      - { id: "T1059.001", weight: 1.0 }
+      - id: T1059.001
+        weight: 1.0
 
   - id: EVT-002
     name: "Encoded Command via cmd.exe"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "process_name"
-        op: "equals"
-        value: "cmd.exe"
-        weight: 0.5
-      - field: "command_line"
-        op: "contains"
-        value: "certutil -decode"
-        weight: 0.5
     score_threshold: 0.85
+    conditions:
+      - field: process_name
+        op: equals
+        value: cmd.exe
+        weight: 0.5
+      - field: command_line
+        op: contains
+        value: certutil -decode
+        weight: 0.5
     mapped_ttps:
-      - { id: "T1140", weight: 1.0 }
+      - id: T1140
+        weight: 1.0
 
   - id: EVT-003
     name: "Registry Persistence Mechanism"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "artifact"
-        op: "contains"
-        value: "Registry"
-        weight: 0.5
-      - field: "registry_path"
-        op: "contains"
-        value: "Run"
-        weight: 0.5
     score_threshold: 0.8
+    conditions:
+      - field: artifact
+        op: contains
+        value: Registry
+        weight: 0.5
+      - field: registry_path
+        op: contains
+        value: Run
+        weight: 0.5
     mapped_ttps:
-      - { id: "T1547.001", weight: 1.0 }
+      - id: T1547.001
+        weight: 1.0
 
   - id: EVT-004
     name: "Outbound SSH Connection"
     domain: fw
     vendor: pfsense
+    score_threshold: 0.75
     conditions:
-      - field: "dst_port"
-        op: "equals"
+      - field: dst_port
+        op: equals
         value: 22
         weight: 0.5
-      - field: "action"
-        op: "equals"
-        value: "pass"
+      - field: action
+        op: equals
+        value: pass
         weight: 0.5
-    score_threshold: 0.75
     mapped_ttps:
-      - { id: "T1021.004", weight: 1.0 }
+      - id: T1021.004
+        weight: 1.0
 
   - id: EVT-005
     name: "External HTTP to Unknown IP"
     domain: proxy
     vendor: squid
-    conditions:
-      - field: "url"
-        op: "contains"
-        value: "http://"
-        weight: 0.5
-      - field: "dst_ip"
-        op: "not_in"
-        value: "internal_range"  # Note: evaluator에선 아직 처리 안됨
-        weight: 0.5
     score_threshold: 0.7
+    conditions:
+      - field: url
+        op: contains
+        value: http://
+        weight: 0.5
+      - field: dst_ip
+        op: not_in
+        value: internal_range
+        weight: 0.5
     mapped_ttps:
-      - { id: "T1071.001", weight: 1.0 }
+      - id: T1071.001
+        weight: 1.0
 
   - id: EVT-006
     name: "Lateral Movement via WMIC"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "process_name"
-        op: "equals"
-        value: "wmic.exe"
-        weight: 0.5
-      - field: "command_line"
-        op: "contains"
-        value: "process call"
-        weight: 0.5
     score_threshold: 0.88
+    conditions:
+      - field: process_name
+        op: equals
+        value: wmic.exe
+        weight: 0.5
+      - field: command_line
+        op: contains
+        value: process call
+        weight: 0.5
     mapped_ttps:
-      - { id: "T1047", weight: 1.0 }
+      - id: T1047
+        weight: 1.0
 
   - id: EVT-007
     name: "Scheduled Task Creation"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "command_line"
-        op: "contains"
-        value: "schtasks"
-        weight: 1.0
     score_threshold: 0.78
+    conditions:
+      - field: command_line
+        op: contains
+        value: schtasks
+        weight: 1.0
     mapped_ttps:
-      - { id: "T1053.005", weight: 1.0 }
+      - id: T1053.005
+        weight: 1.0
 
   - id: EVT-008
     name: "DNS Tunneling Suspicion"
     domain: proxy
     vendor: squid
-    conditions:
-      - field: "url"
-        op: "contains"
-        value: ".xyz"
-        weight: 0.5
-      - field: "query_length"
-        op: "greater_than"
-        value: 80  # Note: evaluator에서 gt 연산자는 향후 도입 고려
-        weight: 0.5
     score_threshold: 0.82
+    conditions:
+      - field: url
+        op: contains
+        value: .xyz
+        weight: 0.5
+      - field: query_length
+        op: greater_than
+        value: 80
+        weight: 0.5
     mapped_ttps:
-      - { id: "T1071.004", weight: 1.0 }
+      - id: T1071.004
+        weight: 1.0
 
   - id: EVT-009
     name: "Excessive Artifact Execution Frequency"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "artifact_frequency"
-        op: "equals"
-        value: "0s"
-        weight: 1.0
     score_threshold: 0.65
+    conditions:
+      - field: artifact_frequency
+        op: equals
+        value: 0s
+        weight: 1.0
     mapped_ttps:
-      - { id: "T1082", weight: 1.0 }
+      - id: T1082
+        weight: 1.0
 
   - id: EVT-010
     name: "Remote File Download via curl"
     domain: edr
     vendor: velociraptor
+    score_threshold: 0.5
     conditions:
-      - field: "command_line"
-        op: "contains"
-        value: "curl"
+      - field: command_line
+        op: contains
+        value: curl
         weight: 0.5
-      - field: "command_line"
-        op: "contains"
-        value: "http"
+      - field: command_line
+        op: contains
+        value: http
         weight: 0.5
-    score_threshold: 0.85
     mapped_ttps:
-      - { id: "T1105", weight: 1.0 }
+      - id: T1105
+        weight: 1.0
 
   - id: EVT-011
     name: "COM Hijack via fodhelper"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "process_name"
-        op: "equals"
-        value: "fodhelper.exe"
-        weight: 1.0
     score_threshold: 0.7
+    conditions:
+      - field: process_name
+        op: equals
+        value: fodhelper.exe
+        weight: 1.0
     mapped_ttps:
-      - { id: "T1548.002", weight: 1.0 }
+      - id: T1548.002
+        weight: 1.0
 
   - id: EVT-012
     name: "ETW Bypass using etwti"
     domain: edr
     vendor: velociraptor
-    conditions:
-      - field: "command_line"
-        op: "contains"
-        value: "etwti"
-        weight: 1.0
     score_threshold: 0.6
+    conditions:
+      - field: command_line
+        op: contains
+        value: etwti
+        weight: 1.0
     mapped_ttps:
-      - { id: "T1620", weight: 1.0 }
+      - id: T1620
+        weight: 1.0
 
   - id: EVT-013
     name: "Remote Code Execution via mshta"
     domain: edr
     vendor: velociraptor
+    score_threshold: 0.5
     conditions:
-      - field: "process_name"
-        op: "equals"
-        value: "mshta.exe"
+      - field: process_name
+        op: equals
+        value: mshta.exe
         weight: 0.5
-      - field: "command_line"
-        op: "contains"
-        value: "http"
+      - field: command_line
+        op: contains
+        value: http
         weight: 0.5
-    score_threshold: 0.7
     mapped_ttps:
-      - { id: "T1218.005", weight: 1.0 }
+      - id: T1218.005
+        weight: 1.0
+
+  - id: EVT-014
+    name: "LOLBin Execution via mshta"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.4
+    conditions:
+      - field: process_name
+        op: equals
+        value: mshta.exe
+        weight: 0.6
+      - field: command_line
+        op: contains
+        value: .hta
+        weight: 0.4
+    mapped_ttps:
+      - id: T1218
+        weight: 1.0
+
+  - id: EVT-015
+    name: "ETW Bypass via PowerShell"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.5
+    conditions:
+      - field: process_name
+        op: equals
+        value: powershell.exe
+        weight: 0.5
+      - field: command_line
+        op: contains
+        value: EventProvider
+        weight: 0.5
+    mapped_ttps:
+      - id: T1620
+        weight: 1.0
+
+  - id: EVT-016
+    name: "Rundll32 Process Injection"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.5
+    conditions:
+      - field: process_name
+        op: equals
+        value: rundll32.exe
+        weight: 0.5
+      - field: command_line
+        op: contains
+        value: Inject
+        weight: 0.5
+    mapped_ttps:
+      - id: T1055
+        weight: 1.0
+
+  - id: EVT-017
+    name: "Credential Access via Mimikatz"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.4
+    conditions:
+      - field: process_name
+        op: equals
+        value: mimikatz.exe
+        weight: 0.6
+      - field: command_line
+        op: contains
+        value: sekurlsa
+        weight: 0.4
+    mapped_ttps:
+      - id: T1003
+        weight: 1.0
+
+  - id: EVT-018
+    name: "Data Exfiltration via Proxy"
+    domain: proxy
+    vendor: squid
+    score_threshold: 0.3
+    conditions:
+      - field: url
+        op: contains
+        value: /exfil/
+        weight: 0.7
+      - field: status
+        op: contains
+        value: 200
+        weight: 0.3
+    mapped_ttps:
+      - id: T1041
+        weight: 1.0
