@@ -11,8 +11,6 @@ def evaluate_role(events, role_rules: list):
         event['role'] = None
         event['role_score'] = 0
         event['role_explanation'] = ""
-        print(
-            f"[ROLE-DEBUG] event_type={event.get('event_type_id')}, source_type={event.get('source_type')}, vendor={event.get('vendor')}")
 
         for rule in role_rules:
             if rule.get("domain") and rule.get("domain") != event.get("source_type"):

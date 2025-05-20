@@ -64,6 +64,5 @@ def build_sessions(events: List[dict], window_minutes: int = 2) -> List[Dict]:
     if current_session:
         sessions.append(current_session)
 
-    print(f"[SESSION] key={key}, timestamp={ts}, total={len(current_session['events']) if current_session else 0}")
 
     return sessions

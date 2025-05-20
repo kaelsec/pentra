@@ -31,11 +31,14 @@ def main():
 
     # 3. Evaluate event types
     event_results = []
+    parsed_logs_with_result = []
+
     for log in parsed_logs:
         for rule in event_dsl["event_types"]:
             result = evaluate_event_type(log, rule)
             if result["result"]:
-                event_results.append(result)
+                enriched = {**log, **result}  # ✅ 평가 정보 덧붙여 저장
+                parsed_logs_with_result.append(enriched)
 
 
 
@@ -43,7 +46,7 @@ def main():
     policy_results = [evaluate_policy(config_snapshot, rule) for rule in policy_dsl]
 
     # 5. Build sessions from raw parsed logs (not evaluated events!)
-    sessions = build_sessions(parsed_logs)  #  원본 로그에서 세션 빌드
+    sessions = build_sessions(parsed_logs_with_result)  #  원본 로그에서 세션 빌드
 
     # 6. Session role evaluation
     session_results = []

