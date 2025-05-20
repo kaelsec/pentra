@@ -64,4 +64,5 @@ def build_sessions(events: List[dict], window_minutes: int = 2) -> List[Dict]:
     if current_session:
         sessions.append(current_session)
 
+
     return sessions

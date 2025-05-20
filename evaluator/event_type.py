@@ -40,5 +40,6 @@ def evaluate_event_type(log: dict, event_def: dict) -> dict:
 
     base_result["mapped_ttps"] = mapped_ttps
     base_result["result"] = True
+    base_result.update(log)
 
     return base_result

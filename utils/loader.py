@@ -1,5 +1,6 @@
 import json
 import yaml
+from datetime import datetime
 
 def load_json(path: str):
     """
@@ -21,3 +22,13 @@ def save_json(path: str, data):
     """
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+def clean_json(obj):
+    if isinstance(obj, dict):
+        return {k: clean_json(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [clean_json(v) for v in obj]
+    elif isinstance(obj, datetime):
+        return obj.isoformat()
+    else:
+        return obj

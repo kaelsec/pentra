@@ -1,12 +1,12 @@
 # 📄 File: evaluator/role.py
-# 🔖 Version: v0.2
-import yaml
+# 🔖 Version: v0.3
 from utils.condition_eval import evaluate_conditions
 
-def evaluate_role(events, dsl_path='rules/session_roles.yaml'):
-    with open(dsl_path, 'r') as f:
-        role_rules = yaml.safe_load(f)
-
+def evaluate_role(events, role_rules: list):
+    """
+    Assign roles to session events using a list of DSL rules.
+    Each event is evaluated against role rules; first matching rule wins.
+    """
     for event in events:
         event['role'] = None
         event['role_score'] = 0
@@ -18,13 +18,13 @@ def evaluate_role(events, dsl_path='rules/session_roles.yaml'):
             explanation = rule.get('explanation', '')
             score = rule.get('score', 0)
 
-            matched = evaluate_conditions(event, conditions)
+            matched, _ = evaluate_conditions(event, conditions)
 
             if matched:
                 event['role'] = role_name
                 event['role_score'] = score
                 event['role_explanation'] = explanation
-                break  # 첫 매칭 룰만 사용
+                break  # Stop after first match
 
     role_summary = {
         'entrypoint': sum(1 for e in events if e.get('role') == 'entrypoint'),
