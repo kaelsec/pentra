@@ -1,48 +1,103 @@
+# 🔖 Version: test-v1.0
 
-# 🔖 Version: v1.0
-# 📄 File: rules/session_roles.yaml
-
-- id: ROLE-001
+- id: ROLE-TEST-001
   role_name: entrypoint
   domain: edr
-  vendor: velociraptor
+  conditions:
+    all:
+      - field: process_name
+        op: equals
+        value: mshta.exe
+  score: 0.9
+  explanation: "Initial access via mshta"
+  tags: [initial_access, lolbin]
+
+- id: ROLE-TEST-002
+  role_name: pivotable
+  domain: edr
+  conditions:
+    all:
+      - field: process_name
+        op: equals
+        value: mimikatz.exe
+  score: 0.8
+  explanation: "Credential access via mimikatz"
+  tags: [credential_access]
+
+- id: ROLE-TEST-003
+  role_name: expansion
+  domain: fw
+  conditions:
+    all:
+      - field: dst_ip
+        op: equals
+        value: 8.8.8.8
+      - field: dst_port
+        op: equals
+        value: 443
+  score: 0.85
+  explanation: "Likely C2 or data exfil via external IP"
+  tags: [lateral, exfil]
+
+- id: ROLE-TEST-004
+  role_name: expansion
+  domain: proxy
+  conditions:
+    all:
+      - field: url
+        op: contains
+        value: exfil
+  score: 0.9
+  explanation: "Exfiltration activity via HTTP proxy"
+  tags: [exfiltration, proxy]
+- id: ROLE-TEST-005
+  role_name: pivotable
+  domain: edr
   conditions:
     all:
       - field: process_name
         op: equals
         value: powershell.exe
-      - field: parent_proc
-        op: equals
-        value: winword.exe
-  score: 0.9
-  explanation: "Likely initial execution from document"
-  tags: [initial_access, office_macro]
+  score: 0.75
+  explanation: "Powershell activity indicating mid-stage logic"
+  tags: [lateral, script]
 
-- id: ROLE-002
+- id: ROLE-TEST-006
   role_name: pivotable
   domain: edr
-  vendor: velociraptor
   conditions:
     all:
-      - field: command_line
-        op: contains
-        value: mimikatz
-  score: 0.8
-  explanation: "Credential access utility observed"
-  tags: [credential_access, lateral_prep]
+      - field: process_name
+        op: equals
+        value: rundll32.exe
+  score: 0.75
+  explanation: "Process injection via rundll32"
+  tags: [execution, injection]
 
-- id: ROLE-003
+- id: ROLE-TEST-007
   role_name: expansion
-  domain: edr
-  vendor: velociraptor
+  domain: fw
   conditions:
     all:
+      - field: dst_ip
+        op: equals
+        value: 8.8.8.8
       - field: dst_port
         op: equals
-        value: 445
-      - field: proc_name
-        op: contains
-        value: smb
+        value: 443
   score: 0.85
-  explanation: "Likely lateral movement via SMB"
-  tags: [lateral_movement, smb]
+  explanation: "Likely C2 via firewall"
+  tags: [exfiltration, fw]
+
+- id: ROLE-TEST-008
+  role_name: expansion
+  domain: proxy
+  conditions:
+    all:
+      - field: url
+        op: contains
+        value: exfil
+  score: 0.9
+  explanation: "Proxy-based data exfiltration"
+  tags: [proxy, exfil]
+

@@ -308,3 +308,34 @@ event_types:
     mapped_ttps:
       - id: T1041
         weight: 1.0
+
+  - id: EVT-019
+    name: External Connection to Suspicious IP
+    domain: fw
+    vendor: pfsense
+    score_threshold: 0.5
+    conditions:
+      all:
+        - field: dst_ip
+          op: equals
+          value: 8.8.8.8
+        - field: dst_port
+          op: equals
+          value: 443
+    mapped_ttps:
+      - id: T1071.001
+        weight: 1.0
+
+  - id: EVT-020
+    name: HTTP Exfiltration via Proxy
+    domain: proxy
+    vendor: squid
+    score_threshold: 0.5
+    conditions:
+      all:
+        - field: url
+          op: contains
+          value: exfil
+    mapped_ttps:
+      - id: T1041
+        weight: 1.0

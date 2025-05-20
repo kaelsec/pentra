@@ -22,8 +22,8 @@ def main():
     parsed_logs = []
     for raw in raw_logs:
         try:
-            raw_str = json.dumps(raw) if isinstance(raw, dict) else raw
-            result = parse_raw_log(raw_str)
+            #raw_str = json.dumps(raw) if isinstance(raw, dict) else raw
+            result = parse_raw_log(raw)
             if result:
                 parsed_logs.append(result)
         except Exception as e:
@@ -32,19 +32,18 @@ def main():
     # 3. Evaluate event types
     event_results = []
     for log in parsed_logs:
-        best_result = None
         for rule in event_dsl["event_types"]:
             result = evaluate_event_type(log, rule)
-            if result["result"] and (best_result is None or result["confidence"] > best_result["confidence"]):
-                best_result = result
-        if best_result:
-            event_results.append(best_result)
+            if result["result"]:
+                event_results.append(result)
+
+
 
     # 4. Policy evaluation
     policy_results = [evaluate_policy(config_snapshot, rule) for rule in policy_dsl]
 
-    # 5. Session building
-    sessions = build_sessions(event_results)
+    # 5. Build sessions from raw parsed logs (not evaluated events!)
+    sessions = build_sessions(parsed_logs)  #  원본 로그에서 세션 빌드
 
     # 6. Session role evaluation
     session_results = []
@@ -71,9 +70,6 @@ def main():
         },
         "schema_version": "v1.2"
     }
-    print('FINAL_RESULT_REPR_START')
-    print(repr(final_result))
-    print('FINAL_RESULT_REPR_END')
     save_json("output/result.json", clean_json(final_result))
 
     print("[+] Risk evaluation complete. Output saved to output/result.json")

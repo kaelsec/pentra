@@ -1,5 +1,5 @@
 # 📄 File: parsers/squid.py
-# 🔖 Version: v0.2
+# 🔖 Version: v0.3-patch
 
 from datetime import datetime
 
@@ -10,28 +10,25 @@ def parse_squid(line: str) -> dict:
         return None  # 불완전한 로그
 
     try:
-        # UNIX timestamp → ISO 8601 변환
         ts_unix = float(parts[0])
         timestamp = datetime.utcfromtimestamp(ts_unix).isoformat() + "Z"
 
-        src_ip = parts[2]
-        status = parts[3]           # e.g., TCP_MISS/200
-        method = parts[5]           # HTTP method
+        client_ip = parts[2]
+        status = parts[3]
+        method = parts[5]
         url = parts[6]
         username = parts[7]
-        hierarchy = parts[8]        # e.g., HIER_DIRECT/10.0.0.2
+        hierarchy = parts[8]
 
         dst_ip = None
         if "/" in hierarchy:
             _, dst_ip = hierarchy.split("/", 1)
 
         return {
-            "source_type": "event",
+            "source_type": "proxy",     # ✅ 수정됨
             "vendor": "squid",
             "timestamp": timestamp,
-
-            # Pentra 1차 스키마 표준 필드
-            "src_ip": src_ip,
+            "client_ip": client_ip,     # ✅ 추가됨
             "dst_ip": dst_ip or None,
             "username": username,
             "url": url,
@@ -41,29 +38,3 @@ def parse_squid(line: str) -> dict:
 
     except Exception:
         return None
-
-
-# def parse_squid(log):
-#     if isinstance(log, dict):
-#         return {
-#             "source_type": "proxy",
-#             "vendor": "squid",
-#             **log
-#         }
-#     elif isinstance(log, str):
-#         parts = log.strip().split()
-#         return {
-#             "source_type": "proxy",
-#             "vendor": "squid",
-#             "timestamp": parts[0],
-#             "client_ip": parts[1],
-#             "url": parts[2],
-#             "status": parts[3]
-#         }
-#     else:
-#         return {
-#             "source_type": "proxy",
-#             "vendor": "squid",
-#             "raw": str(log)
-#         }
-

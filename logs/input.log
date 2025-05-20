@@ -40,22 +40,24 @@
     "dst_ip": "8.8.8.8"
   },
   {
+    "timestamp": "2025-05-20T14:11:00",
+    "source_type": "proxy",
+    "vendor": "squid",
+    "username": "user01",
+    "src_ip": "192.168.100.10",
+    "url": "http://attacker.site/exfil/data.zip",
+    "status": "TCP_MISS/200",
+    "dst_ip": "8.8.8.8"
+  },
+  {
     "timestamp": "2025-05-20T14:10:50",
     "source_type": "fw",
     "vendor": "pfsense",
+    "username": "user01",
     "src_ip": "192.168.100.10",
     "dst_ip": "8.8.8.8",
     "dst_port": 443,
     "protocol": "tcp",
     "action": "allow"
-  },
-  {
-    "timestamp": "2025-05-20T14:11:00",
-    "source_type": "proxy",
-    "vendor": "squid",
-    "client_ip": "192.168.100.10",
-    "url": "http://attacker.site/exfil/data.zip",
-    "status": "TCP_MISS/200",
-    "dst_ip": "8.8.8.8"
   }
 ]

@@ -11,6 +11,9 @@ def parse_raw_log(raw: str) -> dict:
     Determine the appropriate parser based on content and return structured event.
     Supports: pfSense, Velociraptor, Squid Proxy, Config Snapshots
     """
+    if isinstance(raw, dict):
+        return raw
+
     raw_lower = raw.lower()
 
     # ✅ pfSense 로그 (syslog + filterlog 기반)
