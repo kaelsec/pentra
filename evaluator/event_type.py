@@ -17,8 +17,8 @@ def evaluate_event_type(log: dict, event_def: dict) -> dict:
         "confidence": round(confidence, 3),
         "explanation": event_def.get("meta", {}).get("explanation", ""),
         "schema_version": "v2.0",
-        "ttps": [],
-        "result": "False"
+        "mapped_ttps": [],
+        "result": False
     }
 
     if not matched or confidence < event_def.get("score_threshold", 1.0):
