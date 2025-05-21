@@ -339,3 +339,67 @@ event_types:
     mapped_ttps:
       - id: T1041
         weight: 1.0
+
+  - id: EVT-901
+    name: "Prompt Injection Shell via AI Agent"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.4
+    conditions:
+      - field: process_name
+        op: equals
+        value: bash
+        weight: 0.4
+      - field: command_line
+        op: contains
+        value: curl
+        weight: 0.3
+      - field: command_line
+        op: contains
+        value: bash
+        weight: 0.3
+    mapped_ttps:
+      - id: T1565.001  # Input Prompt Injection
+        weight: 0.5
+      - id: T1059.003  # Command and Scripting Interpreter: Unix Shell
+        weight: 0.5
+
+  - id: EVT-902
+    name: "System Tool Abuse: curl"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.3
+    conditions:
+      - field: process_name
+        op: equals
+        value: curl
+        weight: 0.5
+      - field: command_line
+        op: contains
+        value: http://attacker.site
+        weight: 0.3
+    mapped_ttps:
+      - id: T1216  # System Tool Abuse
+        weight: 1.0
+
+  - id: EVT-903
+    name: "Sensitive Data Exfiltration via curl"
+    domain: edr
+    vendor: velociraptor
+    score_threshold: 0.4
+    conditions:
+      - field: process_name
+        op: equals
+        value: curl
+        weight: 0.3
+      - field: command_line
+        op: contains
+        value: --data
+        weight: 0.3
+      - field: command_line
+        op: contains
+        value: /etc/shadow
+        weight: 0.4
+    mapped_ttps:
+      - id: T1041  # Exfiltration Over Command and Control Channel
+        weight: 1.0

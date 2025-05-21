@@ -101,3 +101,51 @@
   explanation: "Proxy-based data exfiltration"
   tags: [proxy, exfil]
 
+
+- id: ROLE-TEST-009
+  role_name: entrypoint
+  domain: edr
+  conditions:
+    all:
+      - field: process_name
+        op: equals
+        value: bash
+      - field: parent_proc
+        op: equals
+        value: llm_helper
+  score: 0.9
+  explanation: "Shell execution triggered by AI LLM agent"
+  tags: [ai, entry, shell]
+
+- id: ROLE-TEST-010
+  role_name: expansion
+  domain: edr
+  conditions:
+    all:
+      - field: process_name
+        op: equals
+        value: curl
+      - field: command_line
+        op: contains
+        value: attacker.site
+  score: 0.85
+  explanation: "System tool abuse via curl to external host"
+  tags: [tool_abuse, c2, lateral]
+
+- id: ROLE-TEST-011
+  role_name: exfil
+  domain: edr
+  conditions:
+    all:
+      - field: process_name
+        op: equals
+        value: curl
+      - field: command_line
+        op: contains
+        value: --data
+      - field: command_line
+        op: contains
+        value: /etc/shadow
+  score: 0.95
+  explanation: "Exfiltration of sensitive files using curl"
+  tags: [exfiltration, data_leak]

@@ -8,6 +8,8 @@ from evaluator.role import evaluate_role
 from evaluator.aggregate import aggregate_risk
 from session.builder import build_sessions
 from session.evaluator import evaluate_ttp_chain
+from ai.llm import generate_narrative_with_gpt
+from report.reporter import generate_mermaid_diagram
 
 def main():
     # 1. Load inputs
@@ -58,7 +60,17 @@ def main():
             **session,
             "events": events_with_roles,
             **role_info,
-            **ttp_info
+            **ttp_info,
+            "narrative": generate_narrative_with_gpt({
+                "session_key": session.get("session_key"),
+                "ttp_chain": ttp_info.get("ttp_chain", ""),
+                "role_sequence": role_info.get("role_sequence", []),
+                "summary": session.get("summary", ""),
+                "confidence": session.get("confidence", 0.0)
+            }),
+            "mermaid_diagram": generate_mermaid_diagram(
+                ttp_info.get("ttp_chain", "").split(" → ")
+            )
         })
     # 7. Aggregate risk
     aggregate_result = aggregate_risk(event_results, policy_results, session_results)
@@ -73,6 +85,7 @@ def main():
         },
         "schema_version": "v1.2"
     }
+
     save_json("output/result.json", clean_json(final_result))
 
     print("[+] Risk evaluation complete. Output saved to output/result.json")

