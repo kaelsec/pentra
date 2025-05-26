@@ -1,37 +1,39 @@
 import re
 
 def evaluate_conditions(event, condition_block):
-    """
-    Evaluate a nested condition block (DSL format) against a single log event.
-    Returns (matched: bool, confidence: float)
-    """
+    trace = []
 
     def _eval(block):
-        # --- list of conditions (default to AND)
+        nonlocal trace
+
         if isinstance(block, list):
             results = [_eval(item) for item in block]
-            weights = [w for _, w in results if w is not None]
-            matched = all(m for m, _ in results)
+            weights = [r["confidence"] for r in results if r["confidence"] is not None]
+            matched = all(r["matched"] for r in results)
             confidence = sum(weights) / len(weights) if weights else 0.0
-            return matched, confidence
+            all_traces = [r["trace"] for r in results]
+            return {
+                "matched": matched,
+                "confidence": confidence,
+                "trace": [t for tr in all_traces for t in tr]
+            }
 
-        # --- explicit "all" block
         if "all" in block:
-            results = [_eval(item) for item in block["all"]]
-            weights = [w for _, w in results if w is not None]
-            matched = all(m for m, _ in results)
-            confidence = sum(weights) / len(weights) if weights else 0.0
-            return matched, confidence
+            return _eval(block["all"])
 
-        # --- explicit "any" block
         if "any" in block:
             results = [_eval(item) for item in block["any"]]
-            matched_items = [(m, c) for m, c in results if m]
+            matched_items = [r for r in results if r["matched"]]
             matched = bool(matched_items)
-            confidence = max(c for _, c in matched_items) if matched_items else 0.0
-            return matched, confidence
+            confidence = max(r["confidence"] for r in matched_items) if matched_items else 0.0
+            any_traces = [r["trace"] for r in results]
+            return {
+                "matched": matched,
+                "confidence": confidence,
+                "trace": [t for tr in any_traces for t in tr]
+            }
 
-        # --- base condition
+        # base condition
         field = block.get("field")
         op = block.get("op")
         value = block.get("value")
@@ -39,7 +41,19 @@ def evaluate_conditions(event, condition_block):
 
         actual = event.get(field)
         if actual is None:
-            return False, None
+            result = {
+                "matched": False,
+                "confidence": None,
+                "trace": [{
+                    "field": field,
+                    "op": op,
+                    "value": value,
+                    "actual": None,
+                    "matched": False,
+                    "weight": weight
+                }]
+            }
+            return result
 
         actual = str(actual).lower()
         value = str(value).lower()
@@ -58,6 +72,20 @@ def evaluate_conditions(event, condition_block):
         elif op == "regex":
             match = bool(re.search(value, actual))
 
-        return match, weight if match else 0.0
+        trace_entry = {
+            "field": field,
+            "op": op,
+            "value": value,
+            "actual": actual,
+            "matched": match,
+            "weight": weight
+        }
+
+        result = {
+            "matched": match,
+            "confidence": weight if match else 0.0,
+            "trace": [trace_entry]
+        }
+        return result
 
     return _eval(condition_block)
